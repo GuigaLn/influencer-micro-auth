@@ -25,5 +25,10 @@ export default [
     files: ["test/"],
     rules: { "jest/prefer-expect-assertions": "off" },
   },
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
   eslintPluginPrettierRecommended,
 ];
