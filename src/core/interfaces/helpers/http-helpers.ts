@@ -13,3 +13,10 @@ export const ok = (data: Record<string, any>): Response => ({
     data,
   },
 });
+
+export const serverError = (error: unknown): Response => ({
+  statusCode: 500,
+  body: {
+    error,
+  },
+});
