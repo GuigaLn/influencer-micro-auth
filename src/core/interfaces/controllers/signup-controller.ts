@@ -1,5 +1,6 @@
 import { ValidationField } from "@/core/validators/protocols/validation-field";
 import { Controller } from "../protocols/controller";
+import { badRequest, ok } from "../helpers/http-helpers";
 
 interface Input {
   name: string;
@@ -30,18 +31,9 @@ export class SignupController extends Controller<Input> {
   async perform(input: Input) {
     const errors = this.validate(input);
     if (errors.length) {
-      return {
-        statusCode: 400,
-        body: {
-          errors,
-        },
-      };
+      return badRequest(errors);
     }
-    return {
-      statusCode: 200,
-      body: {
-        message: "Success",
-      },
-    };
+
+    return ok({ message: "Success" });
   }
 }
