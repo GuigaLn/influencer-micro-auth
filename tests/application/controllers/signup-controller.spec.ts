@@ -27,6 +27,7 @@ describe("SignUpController", () => {
     const expected = {
       statusCode: 400,
       body: {
+        success: false,
         errors: ["name is not a valid string"],
       },
     };
@@ -47,6 +48,7 @@ describe("SignUpController", () => {
     const expected = {
       statusCode: 400,
       body: {
+        success: false,
         errors: ["email is not a valid email"],
       },
     };
@@ -67,6 +69,7 @@ describe("SignUpController", () => {
     const expected = {
       statusCode: 400,
       body: {
+        success: false,
         errors: ["password is not a valid string"],
       },
     };
