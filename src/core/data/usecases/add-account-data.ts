@@ -5,7 +5,7 @@ import { AccountRepository } from "@/core/domain/repositories/account-repository
 export class AddAccountData implements AddAccount {
   constructor(private readonly accountRepository: AccountRepository) {}
 
-  async add(account: AddAccountDto): Promise<boolean> {
+  async add(account: Omit<AddAccountDto, "id">): Promise<boolean> {
     const checkByEmail = await this.accountRepository.checkByEmail(
       account.email,
     );
