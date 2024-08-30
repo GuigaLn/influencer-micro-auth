@@ -3,6 +3,15 @@ import { Response } from "../protocols/http";
 export const badRequest = (errors: string[]): Response => ({
   statusCode: 400,
   body: {
+    success: false,
+    errors,
+  },
+});
+
+export const conflict = (errors: string[]): Response => ({
+  statusCode: 409,
+  body: {
+    success: false,
     errors,
   },
 });
@@ -10,6 +19,7 @@ export const badRequest = (errors: string[]): Response => ({
 export const ok = (data: Record<string, any>): Response => ({
   statusCode: 200,
   body: {
+    success: true,
     data,
   },
 });
@@ -17,6 +27,7 @@ export const ok = (data: Record<string, any>): Response => ({
 export const serverError = (error: unknown): Response => ({
   statusCode: 500,
   body: {
-    error,
+    success: false,
+    errors: [typeof error === "string" ? error : "Internal server error"],
   },
 });
