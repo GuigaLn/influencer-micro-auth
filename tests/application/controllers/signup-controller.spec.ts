@@ -1,3 +1,4 @@
+import { AddAccountData } from "@/core/data/usecases/add-account-data";
 import { SignupController } from "@/core/interfaces/controllers/signup-controller";
 
 interface SutTypes {
@@ -5,7 +6,8 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const sut = new SignupController();
+  const makeAddAccountData = new AddAccountData();
+  const sut = new SignupController(makeAddAccountData);
 
   return {
     sut,
