@@ -1,6 +1,7 @@
 import { SigninDto } from "@/core/domain/models/signin.dto";
 import { Signin } from "@/core/domain/usecases/signin";
 import { SigninController } from "@/core/interfaces/controllers/signin-controller";
+import { serverError } from "@/core/interfaces/helpers/http-helpers";
 
 interface SutTypes {
   sut: SigninController;
@@ -89,6 +90,25 @@ describe("SignInController", () => {
         errors: ["Invalid credentials"],
       },
     };
+
+    expect(httpResponse.statusCode).toBe(expected.statusCode);
+    expect(httpResponse.body).toEqual(expected.body);
+  });
+
+  it("Should return 500 if an error occurs", async () => {
+    const { sut, signinStub } = makeSut();
+    const httpRequest: any = {
+      email: "any_email@email.com",
+      name: "any_name",
+      password: "any_password",
+    };
+
+    jest.spyOn(signinStub, "auth").mockImplementation(() => {
+      throw new Error();
+    });
+    const httpResponse = await sut.perform(httpRequest);
+
+    const expected = serverError(new Error());
 
     expect(httpResponse.statusCode).toBe(expected.statusCode);
     expect(httpResponse.body).toEqual(expected.body);
