@@ -1,6 +1,7 @@
 import { ValidationField } from "@/core/validators/protocols/validation-field";
 import { Controller } from "../protocols/controller";
 import { badRequest, ok, serverError } from "../helpers/http-helpers";
+import { AddAccount } from "@/core/domain/usecases/add-account";
 
 interface Input {
   name: string;
@@ -24,7 +25,7 @@ const fieldsParam: ValidationField[] = [
 ];
 
 export class SignupController extends Controller<Input> {
-  constructor() {
+  constructor(private readonly addAccount: AddAccount) {
     super(fieldsParam);
   }
 
