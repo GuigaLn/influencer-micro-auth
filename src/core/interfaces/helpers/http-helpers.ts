@@ -8,6 +8,14 @@ export const badRequest = (errors: string[]): Response => ({
   },
 });
 
+export const unauthorized = (errors: string[]): Response => ({
+  statusCode: 409,
+  body: {
+    success: false,
+    errors,
+  },
+});
+
 export const conflict = (errors: string[]): Response => ({
   statusCode: 409,
   body: {
