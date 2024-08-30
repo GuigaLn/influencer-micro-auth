@@ -1,11 +1,5 @@
-import { UseCase } from "../protocols/usecase";
+import { AddAccountDto } from "../models/add-account.dto";
 
-interface Input {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export abstract class AddAccount implements UseCase<Input, boolean> {
-  abstract perform: (account: Input) => Promise<boolean>;
+export abstract class AddAccount {
+  abstract add(account: AddAccountDto): Promise<boolean>;
 }
