@@ -9,7 +9,7 @@ export const badRequest = (errors: string[]): Response => ({
 });
 
 export const unauthorized = (errors: string[]): Response => ({
-  statusCode: 409,
+  statusCode: 401,
   body: {
     success: false,
     errors,

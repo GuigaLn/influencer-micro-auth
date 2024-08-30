@@ -1,6 +1,12 @@
 import { ValidationField } from "@/core/validators/protocols/validation-field";
 import { Controller } from "../protocols/controller";
-import { badRequest, ok, serverError } from "../helpers/http-helpers";
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from "../helpers/http-helpers";
+import { Signin } from "@/core/domain/usecases/signin";
 
 interface Input {
   email: string;
@@ -19,7 +25,7 @@ const fieldsParam: ValidationField[] = [
 ];
 
 export class SigninController extends Controller<Input> {
-  constructor() {
+  constructor(private readonly signin: Signin) {
     super(fieldsParam);
   }
 
@@ -31,8 +37,12 @@ export class SigninController extends Controller<Input> {
       }
 
       const { email, password } = input;
+      const auth = await this.signin.auth({ email, password });
+      if (!auth) {
+        return unauthorized(["Invalid credentials"]);
+      }
 
-      return ok({ message: "Success" });
+      return ok(auth);
     } catch (error) {
       return serverError(error);
     }
