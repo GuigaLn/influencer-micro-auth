@@ -18,7 +18,7 @@ export class AccountRepositorySqlite implements AccountRepository {
       VALUES (?, ?, ?, ?)
     `);
     const row = await sql.run(
-      "e",
+      account.id,
       account.name,
       account.email,
       account.password,
