@@ -25,4 +25,14 @@ export class AccountRepositorySqlite implements AccountRepository {
     );
     return !!row;
   }
+
+  async getEmail(email: string): Promise<AddAccountDto | null> {
+    const database = await getSqliteHelper();
+    const row = await database.get(
+      "SELECT id, name, email, password FROM users WHERE email = ?",
+      [email],
+    );
+
+    return row ?? null;
+  }
 }
