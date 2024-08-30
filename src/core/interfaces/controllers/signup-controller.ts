@@ -1,6 +1,6 @@
 import { ValidationField } from "@/core/validators/protocols/validation-field";
 import { Controller } from "../protocols/controller";
-import { badRequest, ok, serverError } from "../helpers/http-helpers";
+import { badRequest, conflict, ok, serverError } from "../helpers/http-helpers";
 import { AddAccount } from "@/core/domain/usecases/add-account";
 
 interface Input {
@@ -34,6 +34,12 @@ export class SignupController extends Controller<Input> {
       const errors = this.validate(input);
       if (errors.length) {
         return badRequest(errors);
+      }
+
+      const { email, name, password } = input;
+      const isValid = await this.addAccount.add({ email, name, password });
+      if (!isValid) {
+        return conflict(["Email in use"]);
       }
 
       return ok({ message: "Success" });
