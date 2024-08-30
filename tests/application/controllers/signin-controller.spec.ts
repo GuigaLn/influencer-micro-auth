@@ -1,14 +1,33 @@
+import { SigninDto } from "@/core/domain/models/signin.dto";
+import { Signin } from "@/core/domain/usecases/signin";
 import { SigninController } from "@/core/interfaces/controllers/signin-controller";
 
 interface SutTypes {
   sut: SigninController;
+  signinStub: Signin;
 }
 
+const makeSignin = (): Signin => {
+  class SigninStub implements Signin {
+    async auth(
+      signin: SigninDto,
+    ): Promise<{ name: string; token: string } | null> {
+      return {
+        name: "any_name",
+        token: "any_token",
+      };
+    }
+  }
+
+  return new SigninStub();
+};
 const makeSut = (): SutTypes => {
-  const sut = new SigninController();
+  const signinStub = makeSignin();
+  const sut = new SigninController(signinStub);
 
   return {
     sut,
+    signinStub,
   };
 };
 
