@@ -12,8 +12,9 @@ const makeSignin = (): Signin => {
   class SigninStub implements Signin {
     async auth(
       signin: SigninDto,
-    ): Promise<{ name: string; token: string } | null> {
+    ): Promise<{ id: string; name: string; token: string } | null> {
       return {
+        id: "any_id",
         name: "any_name",
         token: "any_token",
       };

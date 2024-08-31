@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { SignupController } from "@/core/interfaces/controllers/signup-controller";
 import { AddAccountData } from "@/core/data/usecases/add-account-data";
 import { AccountRepositorySqlite } from "@/core/infra/db/sqlite/repositories/account-repository-sqlite";
@@ -11,6 +12,12 @@ import { JsonwebTokenAdpter } from "@/core/infra/cryptography/jsonwebtoken-token
 const app = express();
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 
 app.post("/sign-in", async (request, response) => {
   const accountRepositoryImpl = new AccountRepositorySqlite();
