@@ -14,7 +14,7 @@ export class SigninData implements Signin {
   async auth({
     email,
     password,
-  }: SigninDto): Promise<{ name: string; token: string } | null> {
+  }: SigninDto): Promise<{ id: string; name: string; token: string } | null> {
     const account = await this.accountRepository.getEmail(email);
     if (!account) {
       return null;
@@ -31,6 +31,7 @@ export class SigninData implements Signin {
     const accessToken = await this.token.sign(account.id);
 
     return {
+      id: account.id,
       name: account.name,
       token: accessToken,
     };
