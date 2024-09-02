@@ -28,7 +28,7 @@ export class SigninData implements Signin {
       return null;
     }
 
-    const accessToken = await this.token.sign(account.id);
+    const accessToken = await this.token.sign({ sub: account.id });
 
     return {
       id: account.id,
