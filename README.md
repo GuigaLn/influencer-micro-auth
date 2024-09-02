@@ -22,3 +22,5 @@
     - Utilização de libs de validação (class-validator e class-transformer);
     - Utilização para banco de dados (Prisma e PostgreSQL);
     - Utilização do Amazon S3 para armazenar imagens;
+    - Melhorias possíveis, existem vários pontos, mas podemos destacar:
+        - Separar os dados genéricos de CEPs em uma tabela específica para não duplicar;
