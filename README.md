@@ -24,3 +24,7 @@
     - Utilização do Amazon S3 para armazenar imagens;
     - Melhorias possíveis, existem vários pontos, mas podemos destacar:
         - Separar os dados genéricos de CEPs em uma tabela específica para não duplicar;
+
+## Fluxo
+
+![alt text](documentation/fluxo.png)
